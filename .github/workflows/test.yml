@@ -38,14 +38,14 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           persist-credentials: false
           fetch-depth: 0
           repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Use Node.js 20.x
-        uses: actions/setup-node@v4.2.0
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a  # v4.2.0
         with:
           cache: 'yarn'
           node-version: '20.x'
@@ -60,7 +60,7 @@ jobs:
           yarn install
 
       - name: Run eslint on changed files
-        uses: tj-actions/eslint-changed-files@v25
+        uses: tj-actions/eslint-changed-files@536c35c8184b8bbd361d3703aa63439e0895c340  # v25
         if: github.event_name == 'pull_request'
         with:
           token: ${{ secrets.PAT_TOKEN }}
@@ -74,7 +74,7 @@ jobs:
           GITHUB_EVENT_PULL_REQUEST_HEAD_REPO_FORK: ${{ github.event.pull_request.head.repo.fork }}
 
       - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v20
+        uses: tj-actions/verify-changed-files@a1c6acee9df209257a246f2cc6ae8cb6581c1edf  # v20
         if: github.actor != 'dependabot[bot]'
         id: changed_files
         with:
@@ -93,19 +93,19 @@ jobs:
       - name: Push changes
         if: steps.changed_files.outputs.files_changed == 'true' && github.event_name == 'pull_request'
         continue-on-error: true
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@d30dc2d070765d7e509df00c34c5fa2dd636ff74  # master
         with:
           github_token: ${{ secrets.PAT_TOKEN }}
           branch: ${{ github.head_ref }}
 
       - name: Upload build assets
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4
         with:
           name: build-assets
           path: dist
 
       - name: Run codacy-coverage-reporter
-        uses: codacy/codacy-coverage-reporter-action@v1
+        uses: codacy/codacy-coverage-reporter-action@89d6c85cfafaec52c72b6c5e8b2878d33104c699  # v1
         continue-on-error: true
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
@@ -120,7 +120,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout into dir1
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           submodules: true
@@ -128,7 +128,7 @@ jobs:
           path: dir1
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
           path: dir1/dist
@@ -154,13 +154,13 @@ jobs:
           bash
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
           path: dir2/dist
 
       - name: Checkout into dir2
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           submodules: true
@@ -196,13 +196,13 @@ jobs:
       contents: read
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           fetch-depth: 0
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
 
@@ -256,13 +256,13 @@ jobs:
 
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           fetch-depth: 0
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
 
@@ -300,13 +300,13 @@ jobs:
 
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           fetch-depth: 0
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
 
@@ -339,13 +339,13 @@ jobs:
 
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           fetch-depth: ${{ matrix.fetch-depth }}
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
 
@@ -373,12 +373,12 @@ jobs:
 
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
 
@@ -407,14 +407,14 @@ jobs:
 
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           fetch-depth: ${{ matrix.fetch-depth }}
           persist-credentials: false
           repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
 
@@ -437,10 +437,10 @@ jobs:
       contents: read
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
 
@@ -492,10 +492,10 @@ jobs:
       contents: read
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
 
@@ -547,7 +547,7 @@ jobs:
       pull-requests: read
     steps:
       - name: Checkout into dir1
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           submodules: true
@@ -555,7 +555,7 @@ jobs:
           path: dir1
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
           path: dir1/dist
@@ -579,14 +579,14 @@ jobs:
       contents: read
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           submodules: true
           fetch-depth: 0
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
           path: dist
@@ -616,7 +616,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout into dir1
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           submodules: true
@@ -624,7 +624,7 @@ jobs:
           path: dir1
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
           path: dir1/dist
@@ -655,14 +655,14 @@ jobs:
 
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           submodules: recursive
           fetch-depth: ${{ matrix.fetch-depth }}
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
 
@@ -721,14 +721,14 @@ jobs:
 
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           submodules: recursive
           fetch-depth: ${{ matrix.fetch-depth }}
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
 
@@ -816,14 +816,14 @@ jobs:
 
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           submodules: recursive
           fetch-depth: ${{ matrix.fetch-depth }}
 
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
 
@@ -1002,7 +1002,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           ref: a52f8621d26d5d9f54b80f74bda2d9eedff94693
           repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -1040,7 +1040,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -1119,7 +1119,7 @@ jobs:
         
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -1127,7 +1127,7 @@ jobs:
           fetch-depth: ${{ matrix.fetch-depth }}
   
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
 
@@ -1172,13 +1172,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           submodules: true
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           fetch-depth: ${{ matrix.fetch-depth }}
       - name: Download build assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
         with:
           name: build-assets
       - name: Dump GitHub context
@@ -2163,9 +2163,9 @@ jobs:
           bash
       - name: Get branch name
         id: branch-name
-        uses: tj-actions/branch-names@v8
+        uses: tj-actions/branch-names@dde14ac574a8b9b1cedc59a1cf312788af43d8d8  # v8
         if: github.event_name == 'pull_request' && matrix.fetch-depth == 0
-      - uses: nrwl/nx-set-shas@v4
+      - uses: nrwl/nx-set-shas@3e9ad7370203c1e93d109be57f3b72eb0eb511b1  # v4
         id: last_successful_commit
         if: github.event_name == 'pull_request' && github.event.action != 'closed' && matrix.fetch-depth == 0
         with:
